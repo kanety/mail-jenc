@@ -3,10 +3,15 @@ module Mail
     module UnstructuredFieldPatch
       def initialize(name, value, charset = nil)
         if Jenc.enabled?
-          if value.is_a?(String) && !value.ascii_only? && charset && charset != 'utf-8'
-            value = Mail::Encodings.b_value_encode(
-              Mail::Encodings.transcode_charset(value, value.encoding, charset)
-            )
+          if value.is_a?(String)
+            if value.ascii_only?
+              charset = 'us-ascii'
+              value.force_encoding('us-ascii')
+            elsif charset && charset != 'utf-8'
+              value = Mail::Encodings.b_value_encode(
+                Mail::Encodings.transcode_charset(value, value.encoding, charset)
+              )
+            end
           end
         end
         super
