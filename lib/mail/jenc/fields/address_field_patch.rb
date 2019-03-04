@@ -3,7 +3,7 @@ module Mail
     module AddressFieldPatch
       def initialize(value, charset = nil)
         if Jenc.enabled?
-          if value.is_a?(String) && !value.ascii_only? && charset && charset != 'utf-8'
+          if value.is_a?(String) && !value.ascii_only? && value.encoding == Encoding::UTF_8 && charset && charset != 'utf-8'
             list = Mail::AddressList.new(value)
             list.addresses.each do |addr|
               if addr.display_name && !addr.display_name.ascii_only?

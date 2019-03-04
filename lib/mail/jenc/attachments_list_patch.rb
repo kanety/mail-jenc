@@ -3,7 +3,7 @@ module Mail
     module AttachmentsListPatch
       def []=(name, value)
         if Jenc.enabled?
-          if name && !name.ascii_only? && value.is_a?(Hash) && (charset = value.delete(:header_charset))
+          if name && !name.ascii_only? && name.encoding == Encoding::UTF_8 && value.is_a?(Hash) && (charset = value.delete(:header_charset))
             mime_type = set_mime_type(name)
             transcoded = Mail::Encodings.transcode_charset(name, name.encoding, charset)
             if Jenc.rfc2231

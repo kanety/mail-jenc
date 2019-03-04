@@ -3,7 +3,7 @@ module Mail
     module MessagePatch
       def body=(value)
         if Jenc.enabled?
-          if value.is_a?(String) && !value.ascii_only? && charset && charset != 'utf-8' && @transport_encoding.to_s != '8bit'
+          if value.is_a?(String) && !value.ascii_only? && value.encoding == Encoding::UTF_8 && charset && charset != 'utf-8' && @transport_encoding.to_s != '8bit'
             value = Mail::Encodings.transcode_charset(value, value.encoding, charset)
             value.force_encoding('us-ascii') if @transport_encoding.to_s == '7bit'
             value = @transport_encoding.encode(value)
