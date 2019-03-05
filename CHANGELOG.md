@@ -1,5 +1,9 @@
 # CHANGELOG
 
+## 1.0.2
+
+* Fix unstructured field encoding.
+
 ## 1.0.1
 
 * Fix encoding condition.
