@@ -18,5 +18,9 @@ RSpec.describe Mail::Jenc do
     it 'does not encode unstructured field with us-ascii' do
       expect(mail.header['X-Mailer'].value).to include('Mailer')
     end
+
+    it 'builds ascii mail' do
+      expect(mail.encoded.ascii_only?).to eq(true)
+    end
   end
 end
