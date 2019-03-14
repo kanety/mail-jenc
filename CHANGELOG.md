@@ -1,5 +1,9 @@
 # CHANGELOG
 
+## 1.0.3
+
+* Fix for copy of headers.
+
 ## 1.0.2
 
 * Fix unstructured field encoding.
