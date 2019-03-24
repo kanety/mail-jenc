@@ -1,5 +1,10 @@
 # CHANGELOG
 
+## 1.0.4
+
+* Add rfc2231 option per mail and make false globally.
+* Fix charset comparison.
+
 ## 1.0.3
 
 * Fix for copy of headers.
