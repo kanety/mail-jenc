@@ -25,7 +25,7 @@ module Mail
     end
 
     self.enable
-    self.rfc2231 = true
+    self.rfc2231 = false
     self.preferred_charsets = {
       'iso-2022-jp' => 'cp50221',
       'shift_jis' => 'cp932'

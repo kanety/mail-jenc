@@ -1,9 +1,10 @@
 RSpec.describe Mail::Jenc do
-  context 'iso-2022-jp' do
-    before do
-      Mail::Jenc.enable
-    end
+  before do
+    Mail::Jenc.enable
+    Mail::Jenc.rfc2231 = false
+  end
 
+  context 'iso-2022-jp' do
     let(:mail) do
       Mail.new(charset: 'iso-2022-jp') do
         from '差出人 <user1@example.com>'
@@ -32,7 +33,7 @@ RSpec.describe Mail::Jenc do
 
     it 'encodes filename' do
       field = mail.parts[1][:content_disposition]
-      expect(field.parameters['filename*0*']).to include("iso-2022-jp''#{url_encode('添付ファイル', 'iso-2022-jp').slice(0, 20)}")
+      expect(field.parameters['filename']).to include(b_encode('添付ファイル', 'iso-2022-jp'))
     end
 
     it 'builds ascii mail' do
@@ -41,10 +42,6 @@ RSpec.describe Mail::Jenc do
   end
 
   context 'cp50221' do
-    before do
-      Mail::Jenc.enable
-    end
-
     let(:text) do
       '①②③ｱｲｳｴｵ―∥￣－～'
     end
@@ -78,7 +75,7 @@ RSpec.describe Mail::Jenc do
 
     it 'encodes filename' do
       field = mail.parts[1][:content_disposition]
-      expect(field.parameters['filename*0*']).to include("iso-2022-jp''#{url_encode(text, 'cp50221').slice(0, 20)}")
+      expect(field.parameters['filename']).to include(b_encode(text, 'cp50221'))
     end
 
     it 'builds ascii mail' do
@@ -87,10 +84,6 @@ RSpec.describe Mail::Jenc do
   end
 
   context 'utf-8' do
-    before do
-      Mail::Jenc.enable
-    end
-
     let(:mail) do
       Mail.new(charset: 'utf-8') do
         from '差出人 <user1@example.com>'
@@ -123,7 +116,7 @@ RSpec.describe Mail::Jenc do
 
     it 'encodes filename' do
       field = mail.parts[1][:content_disposition]
-      expect(field.parameters['filename*0*']).to include(url_encode('添付ファイル'))
+      expect(field.parameters['filename']).to include(b_encode('添付ファイル'))
     end
 
     it 'builds ascii mail' do
@@ -145,24 +138,6 @@ RSpec.describe Mail::Jenc do
 
     it 'does not encode subject' do
       expect(mail[:subject].value).to include('テストメールの件名')
-    end
-  end
-
-  context 'disable rfc2231' do
-    before do
-      Mail::Jenc.enable
-      Mail::Jenc.rfc2231 = false
-    end
-
-    let(:mail) do
-      Mail.new(charset: 'utf-8') do
-        add_file content: '添付ファイルの内容', filename: '添付ファイル.txt'
-      end
-    end
-
-    it 'encodes filename' do
-      field = mail.parts[0][:content_disposition]
-      expect(field.parameters['filename']).to include(b_encode('添付ファイル'))
     end
   end
 end

@@ -1,9 +1,10 @@
 RSpec.describe Mail::Jenc do
-  context 'unstructured field' do
-    before do
-      Mail::Jenc.enable
-    end
+  before do
+    Mail::Jenc.enable
+    Mail::Jenc.rfc2231 = false
+  end
 
+  context 'unstructured field' do
     let(:mail) do
       mail = Mail.new(charset: 'iso-2022-jp')
       mail.from '差出人 <user1@example.com>'
