@@ -21,7 +21,7 @@ module Mail
   end
 end
 
-klasses = ObjectSpace.each_object(Class).select { |klass| klass < Mail::CommonAddress }
+klasses = ObjectSpace.each_object(Class).select { |klass| klass < Mail::CommonAddressField }
 klasses.each do |klass|
   unless klass.included_modules.include?(Mail::Jenc::AddressFieldPatch)
     klass.prepend Mail::Jenc::AddressFieldPatch

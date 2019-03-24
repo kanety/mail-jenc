@@ -6,6 +6,6 @@ rvm:
   - 2.5
   - 2.6
 gemfile:
-  - gemfiles/mail27.gemfile
+  - gemfiles/mail28.gemfile
 script:
   - bundle exec rspec

@@ -1,5 +1,5 @@
 source 'https://rubygems.org'
 
-gem "mail", "~> 2.7.0"
+gem "mail", github: "mikel/mail", branch: "master"
 
 gemspec path: "../"
