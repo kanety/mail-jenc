@@ -101,7 +101,7 @@ RSpec.describe Mail::Jenc do
       end
     end
 
-    it 'encodes from address.first' do
+    it 'encodes from address' do
       expect(mail[:from].value).to include('差出人')
     end
 
