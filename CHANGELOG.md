@@ -1,5 +1,9 @@
 # CHANGELOG
 
+## 1.0.5
+
+* Force us-ascii for only iso-2022-jp.
+
 ## 1.0.4
 
 * Add rfc2231 option per mail and make false globally.
