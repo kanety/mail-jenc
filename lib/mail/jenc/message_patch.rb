@@ -5,7 +5,7 @@ module Mail
         if Jenc.enabled?
           if value.is_a?(String) && !value.ascii_only? && value.encoding == Encoding::UTF_8 && charset && charset.downcase != 'utf-8' && @transport_encoding.to_s != '8bit'
             value = Mail::Encodings.transcode_charset(value, value.encoding, charset)
-            value.force_encoding('us-ascii') if @transport_encoding.to_s == '7bit'
+            value.force_encoding('us-ascii') if @transport_encoding.to_s == '7bit' && charset.downcase == 'iso-2022-jp'
             value = @transport_encoding.encode(value)
           end
         end
