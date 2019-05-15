@@ -1,5 +1,9 @@
 # CHANGELOG
 
+## 1.0.6
+
+* Remove rfc2231 key from options hash.
+
 ## 1.0.5
 
 * Force us-ascii for only iso-2022-jp.
