@@ -15,7 +15,7 @@ module Mail
     module RFC2231Encoder
       class << self
         def encode(name, options = {})
-          encode_to_hash(name, options).map { |k, v| "#{k}=#{v}" }.join(";\r\n\s")
+          encode_to_hash(name, **options).map { |k, v| "#{k}=#{v}" }.join(";\r\n\s")
         end
 
         def encode_to_hash(name, key: 'filename', charset: 'utf-8')
