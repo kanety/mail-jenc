@@ -1,5 +1,9 @@
 # CHANGELOG
 
+## 1.0.7
+
+* Fix deprecation warning for ruby 2.7.
+
 ## 1.0.6
 
 * Remove rfc2231 key from options hash.
