@@ -6,16 +6,18 @@ RSpec.describe Mail::Jenc do
 
   context 'unstructured field' do
     let(:mail) do
-      mail = Mail.new(charset: 'iso-2022-jp')
-      mail.from '差出人 <user1@example.com>'
-      mail.to '宛先 <user2@example.com>'
-      mail.subject '件名'
-      mail.header['X-Test'] = 'ヘッダ'
-      mail.header['X-Mailer'] = 'Mailer'
-      mail
+      Mail.new(charset: 'iso-2022-jp') do
+        from '差出人 <user1@example.com>'
+        to '宛先 <user2@example.com>'
+        subject '件名'
+        header['X-Test'] = 'ヘッダ'
+        header['X-Mailer'] = 'Mailer'
+      end
     end
 
     it 'encodes unstructured field' do
+      expect(mail.header[:from].value).to include(b_encode('差出人', 'iso-2022-jp'))
+      expect(mail.header[:to].value).to include(b_encode('宛先', 'iso-2022-jp'))
       expect(mail.header[:subject].value).to include(b_encode('件名', 'iso-2022-jp'))
       expect(mail.header['X-Test'].value).to include(b_encode('ヘッダ', 'iso-2022-jp'))
       expect(mail.header['X-Mailer'].value).to include('Mailer')

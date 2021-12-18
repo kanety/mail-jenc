@@ -7,9 +7,7 @@ module Mail
             list = Mail::AddressList.new(value)
             list.addresses.each do |addr|
               if addr.display_name && !addr.display_name.ascii_only?
-                addr.display_name = Mail::Encodings.b_value_encode(
-                  Mail::Encodings.transcode_charset(addr.display_name, addr.display_name.encoding, charset)
-                )
+                addr.display_name = BEncoder.encode(addr.display_name, charset)
               end
             end
             value = list.addresses.map(&:encoded).join(', ')

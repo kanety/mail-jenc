@@ -1,25 +1,15 @@
 module Mail
   module Jenc
-    module PercentEncoder
+    class RFC2231Encoder
       class << self
-        def encode(str)
-          encode_to_array(str).join
+        def encode(name, charset, **options)
+          encode_to_hash(name, charset, **options).map { |k, v| "#{k}=#{v}" }.join(";\r\n\s")
         end
 
-        def encode_to_array(str)
-          str.unpack('H*').first.scan(/.{2}/).map { |hex| "%#{hex.upcase}" }
-        end
-      end
-    end
-
-    module RFC2231Encoder
-      class << self
-        def encode(name, options = {})
-          encode_to_hash(name, **options).map { |k, v| "#{k}=#{v}" }.join(";\r\n\s")
-        end
-
-        def encode_to_hash(name, key: 'filename', charset: 'utf-8')
-          hexes = name.unpack('H*')[0].scan(/.{2}/).map { |hex| "%#{hex.upcase}" }
+        def encode_to_hash(name, charset, key: 'filename')
+          hexes = PercentEncoder.encode_to_array(
+            Mail::Encodings.transcode_charset(name, name.encoding, charset)
+          )
 
           first_hex_num = hex_num(charset.size + key.size + 3)
           if hexes.size <= first_hex_num

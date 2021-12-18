@@ -20,7 +20,7 @@ RSpec.describe Mail::Jenc do
 
     it 'does not use rfc2231 format' do
       mail.add_file content: '添付ファイルの内容', filename: '添付ファイル.txt', rfc2231: false
-      encoded = b_encode('添付ファイル')
+      encoded = b_encode('添付ファイル.txt', 'utf-8')
       expect(mail.parts[1][:content_disposition].parameters['filename']).to include(encoded)
       expect(mail.parts[1].encoded).to include(encoded)
     end
@@ -47,7 +47,7 @@ RSpec.describe Mail::Jenc do
 
     it 'does not use rfc2231 format' do
       mail.add_file content: '添付ファイルの内容', filename: '添付ファイル.txt', rfc2231: false
-      encoded = b_encode('添付ファイル')
+      encoded = b_encode('添付ファイル.txt', 'utf-8')
       expect(mail.parts[1][:content_disposition].parameters['filename']).to include(encoded)
       expect(mail.parts[1].encoded).to include(encoded)
     end

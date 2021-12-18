@@ -37,7 +37,7 @@ RSpec.describe Mail::Jenc do
 
     it 'encodes filename' do
       field = mail.parts[1][:content_disposition]
-      expect(field.parameters['filename']).to include(b_encode('添付ファイル'))
+      expect(field.parameters['filename']).to include(b_encode('添付ファイル.txt', 'utf-8'))
     end
 
     it 'builds ascii mail' do

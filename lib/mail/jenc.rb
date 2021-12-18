@@ -9,6 +9,7 @@ module Mail
     class << self
       attr_reader :enabled
       attr_accessor :rfc2231
+      attr_accessor :escape_sequence_charsets
       attr_accessor :preferred_charsets
 
       def enabled?
@@ -26,6 +27,7 @@ module Mail
 
     self.enable
     self.rfc2231 = false
+    self.escape_sequence_charsets = ['iso-2022-jp']
     self.preferred_charsets = {
       'iso-2022-jp' => 'cp50221',
       'shift_jis' => 'cp932'

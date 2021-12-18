@@ -6,12 +6,11 @@ require 'mail/jenc'
 require 'base64'
 
 def encode(str, charset)
-  str.encode(charset)
+  Mail::Encodings.transcode_charset(str, str.encoding, charset)
 end
 
-def b_encode(str, charset = nil)
-  str = str.encode(charset, undef: :replace, invalid: :replace) if charset
-  Base64.encode64(str).chomp
+def b_encode(str, charset)
+  Mail::Jenc::BEncoder.encode(str, charset)
 end
 
 def url_encode(str, charset = nil)
