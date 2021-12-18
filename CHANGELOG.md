@@ -1,5 +1,9 @@
 # CHANGELOG
 
+## 1.0.8
+
+* Don't separate escape sequence for b encoding.
+
 ## 1.0.7
 
 * Fix deprecation warning for ruby 2.7.
