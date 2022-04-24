@@ -1,5 +1,9 @@
 # CHANGELOG
 
+## 1.0.9
+
+* Fix mail version to < 2.8.0.
+
 ## 1.0.8
 
 * Don't separate escape sequence for b encoding.
