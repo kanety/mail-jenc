@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'mail'
 
 Dir["#{__dir__}/jenc/**/*.rb"].each do |file|
