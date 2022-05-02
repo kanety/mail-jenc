@@ -1,6 +1,6 @@
 module Mail
   module Jenc
-    module AddressFieldPatch
+    module CommonAddressFieldPatch
       def initialize(value, charset = nil)
         if Jenc.enabled?
           if value.is_a?(String) && !value.ascii_only? && value.encoding == Encoding::UTF_8 && charset && charset.downcase != 'utf-8'
@@ -19,9 +19,9 @@ module Mail
   end
 end
 
-klasses = ObjectSpace.each_object(Class).select { |klass| klass < Mail::CommonAddress }
+klasses = ObjectSpace.each_object(Class).select { |klass| klass < Mail::CommonAddressField }
 klasses.each do |klass|
-  unless klass.included_modules.include?(Mail::Jenc::AddressFieldPatch)
-    klass.prepend Mail::Jenc::AddressFieldPatch
+  unless klass.included_modules.include?(Mail::Jenc::CommonAddressFieldPatch)
+    klass.prepend Mail::Jenc::CommonAddressFieldPatch
   end
 end

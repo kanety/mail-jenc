@@ -1,9 +1,9 @@
 module Mail
   module Jenc
-    module Ruby19Patch
+    module UtilitiesPatch
       def transcode_charset(str, from_encoding, to_encoding = Encoding::UTF_8)
         if Jenc.enabled?
-          coded = super(str, from_encoding, Ruby19Patch.preferred_charset(to_encoding))
+          coded = super(str, from_encoding, UtilitiesPatch.preferred_charset(to_encoding))
           coded.force_encoding(to_encoding)
         else
           super
@@ -19,6 +19,6 @@ module Mail
   end
 end
 
-unless Mail::Ruby19.singleton_class.included_modules.include?(Mail::Jenc::Ruby19Patch)
-  Mail::Ruby19.singleton_class.prepend Mail::Jenc::Ruby19Patch
+unless Mail::Utilities.singleton_class.included_modules.include?(Mail::Jenc::UtilitiesPatch)
+  Mail::Utilities.singleton_class.prepend Mail::Jenc::UtilitiesPatch
 end

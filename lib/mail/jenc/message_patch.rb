@@ -20,6 +20,15 @@ module Mail
         end
         super
       end
+
+      def convert_to_multipart
+        unless has_content_type?
+          content_type = 'text/plain'
+          content_type += "; charset=#{charset}" if charset
+          self.content_type = content_type
+        end
+        super
+      end
     end
   end
 end

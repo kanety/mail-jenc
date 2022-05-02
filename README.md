@@ -4,8 +4,8 @@ A mail patch for encoding conventional mail.
 
 ## Dependencies
 
-* ruby 2.3+
-* mail 2.7
+* ruby 2.5+
+* mail 2.8
 
 ## Installation
 
