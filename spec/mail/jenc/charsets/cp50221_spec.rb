@@ -1,10 +1,10 @@
 RSpec.describe Mail::Jenc do
-  context 'cp50221' do
-    before do
-      Mail::Jenc.enable
-      Mail::Jenc.rfc2231 = false
-    end
+  before do
+    Mail::Jenc.enable
+    Mail::Jenc.rfc2231 = false
+  end
 
+  context 'cp50221' do
     let(:mail) do
       Mail.new(charset: 'iso-2022-jp') do
         from "ｻｼﾀﾞｼﾆﾝ <user1@example.com>"
@@ -52,6 +52,42 @@ RSpec.describe Mail::Jenc do
 
     it 'builds ascii mail' do
       expect(mail.encoded.ascii_only?).to eq(true)
+    end
+  end
+
+  context 'cp50221 with multipart/alternative' do
+    let(:mail) do
+      Mail.new(charset: 'iso-2022-jp') do
+        text_part do
+          content_type %Q|text/plain; charset="iso-2022-jp"|
+          body "ﾎﾝﾌﾞﾝ"
+        end
+        html_part do
+          content_type %Q|text/plain; charset="iso-2022-jp"|
+          body "ﾎﾝﾌﾞﾝ"
+        end
+        add_file content: "ﾃﾝﾌﾟﾌｧｲﾙﾉﾅｲﾖｳ", filename: "①ﾃﾝﾌﾟﾌｧｲﾙ.txt"
+      end
+    end
+
+    it 'encodes body' do
+      expect(mail.parts[0].body.raw_source.dup.force_encoding('iso-2022-jp')).to include(encode("ﾎﾝﾌﾞﾝ", 'iso-2022-jp'))
+      mail.parts[0].charset = 'cp50221'
+      expect(mail.parts[0].decoded).to include("ﾎﾝﾌﾞﾝ")
+      expect(mail.parts[1].body.raw_source.dup.force_encoding('iso-2022-jp')).to include(encode("ﾎﾝﾌﾞﾝ", 'iso-2022-jp'))
+      mail.parts[1].charset = 'cp50221'
+      expect(mail.parts[1].decoded).to include("ﾎﾝﾌﾞﾝ")
+    end
+
+    it 'encodes attachment body' do
+      expect(mail.parts[2].body.raw_source).to include('ﾃﾝﾌﾟﾌｧｲﾙﾉﾅｲﾖｳ')
+      expect(mail.parts[2].decoded).to include('ﾃﾝﾌﾟﾌｧｲﾙﾉﾅｲﾖｳ')
+    end
+
+    it 'encodes filename' do
+      expect(mail.parts[2][:content_disposition].parameters['filename']).to include(b_encode("①ﾃﾝﾌﾟﾌｧｲﾙ.txt", 'iso-2022-jp'))
+      mail.parts[2][:content_disposition].value = mail.parts[2][:content_disposition].value.sub('ISO-2022-JP', 'CP50221')
+      expect(mail.parts[2].filename).to include("①ﾃﾝﾌﾟﾌｧｲﾙ.txt")
     end
   end
 end

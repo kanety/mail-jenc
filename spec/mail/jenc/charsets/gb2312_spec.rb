@@ -1,10 +1,10 @@
 RSpec.describe Mail::Jenc do
-  context 'gb2312' do
-    before do
-      Mail::Jenc.enable
-      Mail::Jenc.rfc2231 = false
-    end
+  before do
+    Mail::Jenc.enable
+    Mail::Jenc.rfc2231 = false
+  end
 
+  context 'gb2312' do
     let(:mail) do
       Mail.new(charset: 'gb2312') do
         from '从 <user1@example.com>'
@@ -47,6 +47,39 @@ RSpec.describe Mail::Jenc do
 
     it 'builds ascii mail' do
       expect(mail.encoded.ascii_only?).to eq(true)
+    end
+  end
+
+  context 'gb2312 with multipart/alternative' do
+    let(:mail) do
+      Mail.new(charset: 'gb2312') do
+        text_part do
+          content_type %Q|text/plain; charset="gb2312"|
+          body '测试电子邮件的文本'
+        end
+        html_part do
+          content_type %Q|text/plain; charset="gb2312"|
+          body '测试电子邮件的文本'
+        end
+        add_file content: '附件的内容', filename: '附件.txt'
+      end
+    end
+
+    it 'encodes body' do
+      expect(mail.parts[0].body.raw_source.dup.force_encoding('gb2312')).to include(encode('测试电子邮件的文本', 'gb2312'))
+      expect(mail.parts[0].decoded).to include('测试电子邮件的文本')
+      expect(mail.parts[1].body.raw_source.dup.force_encoding('gb2312')).to include(encode('测试电子邮件的文本', 'gb2312'))
+      expect(mail.parts[1].decoded).to include('测试电子邮件的文本')
+    end
+
+    it 'encodes attachment body' do
+      expect(mail.parts[2].body.raw_source).to include('附件的内容')
+      expect(mail.parts[2].decoded).to include('附件的内容')
+    end
+
+    it 'encodes filename' do
+      expect(mail.parts[2][:content_disposition].parameters['filename']).to include(b_encode('附件.txt', 'gb2312'))
+      expect(mail.parts[2].filename).to include('附件.txt')
     end
   end
 end

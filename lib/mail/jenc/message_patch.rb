@@ -14,8 +14,8 @@ module Mail
 
       def add_file(values)
         if Jenc.enabled?
-          if values.is_a?(Hash) && charset
-            values[:header_charset] = charset
+          if values.is_a?(Hash) && header.charset
+            values[:header_charset] = header.charset
           end
         end
         super
