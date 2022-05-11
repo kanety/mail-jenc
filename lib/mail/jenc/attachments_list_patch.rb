@@ -6,7 +6,7 @@ module Mail
           charset = value.delete(:header_charset)
           rfc2231 = value.key?(:rfc2231) ? value.delete(:rfc2231) : Jenc.rfc2231
 
-          if name && !name.ascii_only? && name.encoding == Encoding::UTF_8 && charset
+          if name && name.encoding == Encoding::UTF_8 && charset
             mime_type = set_mime_type(name)
             if rfc2231
               encoded = RFC2231Encoder.encode(name, charset)
