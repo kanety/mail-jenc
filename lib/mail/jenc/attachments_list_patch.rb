@@ -2,10 +2,13 @@ module Mail
   module Jenc
     module AttachmentsListPatch
       def []=(name, value)
-        if Jenc.enabled?
-          if name && !name.ascii_only? && name.encoding == Encoding::UTF_8 && value.is_a?(Hash) && (charset = value.delete(:header_charset))
+        if Jenc.enabled? && value.is_a?(Hash)
+          charset = value.delete(:header_charset)
+          rfc2231 = value.key?(:rfc2231) ? value.delete(:rfc2231) : Jenc.rfc2231
+
+          if name && !name.ascii_only? && name.encoding == Encoding::UTF_8 && charset
             mime_type = set_mime_type(name)
-            if (value.key?(:rfc2231) ? value.delete(:rfc2231) : Jenc.rfc2231)
+            if rfc2231
               encoded = RFC2231Encoder.encode(name, charset)
               value[:content_disposition] ||= %Q|#{@content_disposition_type}; #{encoded}|
               encoded = BEncoder.encode(name, charset)
