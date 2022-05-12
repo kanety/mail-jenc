@@ -1,5 +1,11 @@
 # CHANGELOG
 
+## 1.0.10
+
+* Prefer header charset for encoding filename.
+* Avoid encoding extra options to attachment header.
+* Remove unnecessary charset from content type.
+
 ## 1.0.9
 
 * Fix mail version to < 2.8.0.
