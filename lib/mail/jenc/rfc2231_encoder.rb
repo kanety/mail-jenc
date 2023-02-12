@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module Mail
   module Jenc
     class RFC2231Encoder

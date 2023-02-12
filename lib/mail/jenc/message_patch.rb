@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module Mail
   module Jenc
     module MessagePatch
@@ -14,9 +16,19 @@ module Mail
 
       def add_file(values)
         if Jenc.enabled?
-          if values.is_a?(Hash) && header.charset
-            values[:header_charset] = header.charset
+          if values.is_a?(Hash)
+            values[:charset] ||= nil
+            values[:header_charset] = header.charset if header.charset
           end
+        end
+        super
+      end
+
+      def convert_to_multipart
+        unless has_content_type?
+          content_type = 'text/plain'
+          content_type += "; charset=#{charset}" if charset
+          self.content_type = content_type
         end
         super
       end
