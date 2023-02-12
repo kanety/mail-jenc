@@ -1,5 +1,10 @@
 # CHANGELOG
 
+## 1.1.0
+
+* Change supported mail version to 2.8.
+* Drop support for ruby 2.3 and 2.4.
+
 ## 1.0.10
 
 * Prefer header charset for encoding filename.
