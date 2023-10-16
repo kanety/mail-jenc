@@ -63,23 +63,23 @@ RSpec.describe Mail::Jenc do
         end
         add_file content: '添付ファイルの内容', filename: '添付ファイル.txt'
       end
+    end
 
-      it 'encodes body' do
-        expect(mail.parts[0].body.raw_source.dup.force_encoding('iso-2022-jp')).to include(encode('メールの本文', 'iso-2022-jp'))
-        expect(mail.parts[0].decoded).to include('メールの本文')
-        expect(mail.parts[1].body.raw_source.dup.force_encoding('iso-2022-jp')).to include(encode('メールの本文', 'iso-2022-jp'))
-        expect(mail.parts[1].decoded).to include('メールの本文')
-      end
+    it 'encodes body' do
+      expect(mail.parts[0].body.raw_source.dup.force_encoding('iso-2022-jp')).to include(encode('メールの本文', 'iso-2022-jp'))
+      expect(mail.parts[0].decoded).to include('メールの本文')
+      expect(mail.parts[1].body.raw_source.dup.force_encoding('iso-2022-jp')).to include(encode('メールの本文', 'iso-2022-jp'))
+      expect(mail.parts[1].decoded).to include('メールの本文')
+    end
 
-      it 'encodes attachment body' do
-        expect(mail.parts[2].body.raw_source).to include('添付ファイルの内容')
-        expect(mail.parts[2].decoded).to include('添付ファイルの内容')
-      end
-  
-      it 'encodes filename' do
-        expect(mail.parts[2][:content_disposition].parameters['filename']).to include(b_encode('添付ファイル.txt', 'iso-2022-jp'))
-        expect(mail.parts[2].filename).to include('添付ファイル.txt')
-      end
+    it 'encodes attachment body' do
+      expect(mail.parts[2].body.raw_source).to include('添付ファイルの内容')
+      expect(mail.parts[2].decoded).to include('添付ファイルの内容')
+    end
+
+    it 'encodes filename' do
+      expect(mail.parts[2][:content_disposition].parameters['filename']).to include(b_encode('添付ファイル.txt', 'iso-2022-jp'))
+      expect(mail.parts[2].filename).to include('添付ファイル.txt')
     end
   end
 end
