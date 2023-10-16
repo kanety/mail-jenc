@@ -14,7 +14,7 @@ module Mail
 
       class << self
         def preferred_charset(charset)
-          Jenc.preferred_charsets[charset.to_s.downcase] || charset
+          Jenc.config.preferred_charsets[charset.to_s.downcase] || charset
         end
       end
     end

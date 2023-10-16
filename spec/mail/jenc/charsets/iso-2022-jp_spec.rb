@@ -1,7 +1,7 @@
 RSpec.describe Mail::Jenc do
   before do
-    Mail::Jenc.enable
-    Mail::Jenc.rfc2231 = false
+    Mail::Jenc.enable!
+    Mail::Jenc.config.rfc2231 = false
   end
 
   context 'iso-2022-jp' do

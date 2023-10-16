@@ -1,8 +1,8 @@
 RSpec.describe Mail::Jenc do
   context 'enable rfc2231' do
     before do
-      Mail::Jenc.enable
-      Mail::Jenc.rfc2231 = true
+      Mail::Jenc.enable!
+      Mail::Jenc.config.rfc2231 = true
     end
 
     let(:mail) do
@@ -26,8 +26,8 @@ RSpec.describe Mail::Jenc do
 
   context 'disable rfc2231' do
     before do
-      Mail::Jenc.enable
-      Mail::Jenc.rfc2231 = false
+      Mail::Jenc.enable!
+      Mail::Jenc.config.rfc2231 = false
     end
 
     let(:mail) do

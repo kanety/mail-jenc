@@ -25,10 +25,10 @@ Use mail as usual. You can enable/disable patched features as follows:
 
 ```ruby
 # disable patch
-Mail::Jenc.disable
+Mail::Jenc.disable!
 
 # enable patch
-Mail::Jenc.enable
+Mail::Jenc.enable!
 ```
 
 ## Contributing

@@ -5,7 +5,7 @@ module Mail
     class BEncoder
       class << self
         def encode(str, charset)
-          if Jenc.escape_sequence_charsets.include?(charset.to_s.downcase)
+          if Jenc.config.escape_sequence_charsets.include?(charset.to_s.downcase)
             split(str).map { |s| transcode_and_encode(s, charset) }.join(' ')
           else
             transcode_and_encode(str, charset)

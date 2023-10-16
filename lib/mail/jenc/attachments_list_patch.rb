@@ -6,7 +6,7 @@ module Mail
       def []=(name, value)
         if Jenc.enabled? && value.is_a?(Hash)
           charset = value.delete(:header_charset)
-          rfc2231 = value.key?(:rfc2231) ? value.delete(:rfc2231) : Jenc.rfc2231
+          rfc2231 = value.key?(:rfc2231) ? value.delete(:rfc2231) : Jenc.config.rfc2231
 
           if name && name.encoding == Encoding::UTF_8 && charset
             mime_type = set_mime_type(name)

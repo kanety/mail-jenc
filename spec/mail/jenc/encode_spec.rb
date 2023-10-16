@@ -1,7 +1,7 @@
 RSpec.describe Mail::Jenc do
   context 'enabled' do
     before do
-      Mail::Jenc.enable
+      Mail::Jenc.enable!
     end
 
     let(:mail) do
@@ -18,7 +18,7 @@ RSpec.describe Mail::Jenc do
 
   context 'disable' do
     before do
-      Mail::Jenc.disable
+      Mail::Jenc.disable!
     end
 
     let(:mail) do
