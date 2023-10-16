@@ -36,6 +36,4 @@ module Mail
   end
 end
 
-unless Mail::Message.included_modules.include?(Mail::Jenc::MessagePatch)
-  Mail::Message.prepend Mail::Jenc::MessagePatch
-end
+Mail::Message.prepend Mail::Jenc::MessagePatch

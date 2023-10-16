@@ -29,6 +29,4 @@ module Mail
   end
 end
 
-unless Mail::AttachmentsList.included_modules.include?(Mail::Jenc::AttachmentsListPatch)
-  Mail::AttachmentsList.prepend Mail::Jenc::AttachmentsListPatch
-end
+Mail::AttachmentsList.prepend Mail::Jenc::AttachmentsListPatch

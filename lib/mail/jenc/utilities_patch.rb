@@ -21,6 +21,4 @@ module Mail
   end
 end
 
-unless Mail::Utilities.singleton_class.included_modules.include?(Mail::Jenc::UtilitiesPatch)
-  Mail::Utilities.singleton_class.prepend Mail::Jenc::UtilitiesPatch
-end
+Mail::Utilities.singleton_class.prepend Mail::Jenc::UtilitiesPatch

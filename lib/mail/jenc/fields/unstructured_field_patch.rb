@@ -19,6 +19,4 @@ module Mail
   end
 end
 
-unless Mail::UnstructuredField.included_modules.include?(Mail::Jenc::UnstructuredFieldPatch)
-  Mail::UnstructuredField.prepend Mail::Jenc::UnstructuredFieldPatch
-end
+Mail::UnstructuredField.prepend Mail::Jenc::UnstructuredFieldPatch
