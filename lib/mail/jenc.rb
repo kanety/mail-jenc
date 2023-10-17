@@ -9,8 +9,8 @@ end
 module Mail
   module Jenc
     class << self
-      @@enabled = true
       @@config = Config.new(
+        enabled: true,
         rfc2231: false,
         escape_sequence_charsets: ['iso-2022-jp'],
         preferred_charsets: {
@@ -20,15 +20,15 @@ module Mail
       )
 
       def enabled?
-        @@enabled
+        @@config.enabled
       end
 
       def enable!
-        @@enabled = true
+        @@config.enabled = true
       end
 
       def disable!
-        @@enabled = false
+        @@config.enabled = false
       end
 
       def configure

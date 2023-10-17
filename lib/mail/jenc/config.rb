@@ -3,7 +3,7 @@
 module Mail
   module Jenc
     class Config
-      CONFIGS = [:rfc2231, :escape_sequence_charsets, :preferred_charsets]
+      CONFIGS = [:enabled, :rfc2231, :escape_sequence_charsets, :preferred_charsets]
       CONFIGS.each do |config|
         attr_accessor config
       end
