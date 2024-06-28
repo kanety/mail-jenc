@@ -1,5 +1,9 @@
 # CHANGELOG
 
+## 1.3.0
+
+* Add patch to keep instances for `smtp_envelope_from` and `smtp_envelope_to`.
+
 ## 1.2.0
 
 * Add current config which enables specified configs only in a block.
