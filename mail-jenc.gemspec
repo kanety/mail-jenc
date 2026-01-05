@@ -16,6 +16,8 @@ Gem::Specification.new do |s|
 
   s.files = Dir["{app,config,db,lib}/**/*", "MIT-LICENSE", "Rakefile", "README.md"]
 
+  s.required_ruby_version = ">= 3.0"
+
   s.add_dependency "mail", ">= 2.9.0"
 
   s.add_development_dependency "irb"
