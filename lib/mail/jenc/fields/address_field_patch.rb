@@ -21,7 +21,4 @@ module Mail
   end
 end
 
-klasses = ObjectSpace.each_object(Class).select { |klass| klass < Mail::CommonAddressField }
-klasses.each do |klass|
-  klass.prepend Mail::Jenc::CommonAddressFieldPatch
-end
+Mail::CommonAddressField.prepend Mail::Jenc::CommonAddressFieldPatch

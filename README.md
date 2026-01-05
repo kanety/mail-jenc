@@ -5,7 +5,7 @@ A mail patch for encoding conventional mail.
 ## Dependencies
 
 * ruby 2.5+
-* mail 2.8
+* mail 2.9
 
 ## Installation
 
