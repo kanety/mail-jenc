@@ -18,6 +18,7 @@ Gem::Specification.new do |s|
 
   s.add_dependency "mail", ">= 2.8.1"
 
+  s.add_development_dependency "irb"
   s.add_development_dependency "rake"
   s.add_development_dependency "rspec"
   s.add_development_dependency "simplecov"
