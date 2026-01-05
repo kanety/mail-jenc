@@ -1,5 +1,10 @@
 # CHANGELOG
 
+## 1.4.0
+
+* Add support for mail 2.9, drop support for mail 2.8.
+* Drop support for ruby <= 2.7.
+
 ## 1.3.1
 
 * Fix mail version to < 2.9.0.
