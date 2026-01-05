@@ -1,5 +1,9 @@
 # CHANGELOG
 
+## 1.3.1
+
+* Fix mail version to < 2.9.0.
+
 ## 1.3.0
 
 * Add patch to keep instances for `smtp_envelope_from` and `smtp_envelope_to`.
